@@ -2,7 +2,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
-    static void menu() throws SQLException {
+    static void menu() throws SQLException, ClassNotFoundException {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter choose a option from downside : ");
         byte options = keyboard.nextByte();
