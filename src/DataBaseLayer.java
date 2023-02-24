@@ -2,7 +2,6 @@ import java.sql.*;
 
 public class DataBaseLayer {
 
-
     static void dataBaseLayer() throws SQLException, ClassNotFoundException {
       /*  Connection c = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-T9F59R5\\MSSQLSERVER:1433;useSSL=false;encrypt=false;integratedSecurity=true;");
         Statement st = c.createStatement();
