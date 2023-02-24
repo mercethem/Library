@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 import java.util.Scanner;
-
 public class Menu {
     static void menu() throws SQLException, ClassNotFoundException {
         Scanner keyboard = new Scanner(System.in);
