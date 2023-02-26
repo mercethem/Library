@@ -12,7 +12,7 @@ public class Menu {
             case 3: Borrow.borrow();
             case 4: Returning.returning();
             case 5: DataBaseLayer.dataBaseLayer();
-
+            case 6: DisplayBook.displayOptionsWithAuthorname();  //TODO Temporary!!! When finished delete this case
         }
     }
 
