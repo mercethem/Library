@@ -56,10 +56,10 @@ class DisplayAccount {
 
 
 class DisplayBook {
-    static void displayBookOptions() throws SQLException {
+    static void displayBookOptions() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("What are you want to display with ? \nWith Book Id? (0): \nWith Book Name?(1)"
-                + "\nWith Author Name? \n ");
+                + "\nWith Author Name?(2) \n ");
         byte options = keyboard.nextByte();
         switch (options) {
             case 0:
@@ -71,44 +71,60 @@ class DisplayBook {
         }
     }
 
-    static void displayOptionsWithBookId() throws SQLException {
+    static void displayOptionsWithBookId() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a Book ID for display to book : ");
         long bookId = keyboard.nextLong();
-
         DataBaseLayer.dataBaseLayer();
         Statement myStatement = DataBaseLayer.myConnection.createStatement();
-        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.students,LibraryStock.dbo.borrows,LibraryStock.dbo.books WHERE students.studentId = '" + bookId + "' AND students.studentId = borrows.studentId AND borrows.bookId=books.bookId");
-
-
+        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.bookId = '"+bookId+"' AND books.typeId = types.typeId");
+        while (myResult.next()){
+            System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
+                    myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(),myResult.getString("printDate"),myResult.getLong("pageCount"));
+        }
+        System.out.println();
+        myStatement.close(); // close statement
+        DataBaseLayer.myConnection.close(); // close connection
+        Menu.menu();
 
     }
 
-    static void displayOptionsWithBookName() throws SQLException {
+    static void displayOptionsWithBookName() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter book name for display that book : ");
         String bookName = keyboard.nextLine();
-        keyboard.next();
         //TODO trim and lowercase etc.
 
         DataBaseLayer.dataBaseLayer();
         Statement myStatement = DataBaseLayer.myConnection.createStatement();
-        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.students,LibraryStock.dbo.borrows,LibraryStock.dbo.books WHERE students.studentId = '" + bookName + "' AND students.studentId = borrows.studentId AND borrows.bookId=books.bookId");
-
+        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.bookName LIKE '%"+bookName+"%' AND books.typeId = types.typeId");
+        while (myResult.next()){
+            System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
+                    myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(),myResult.getString("printDate"),myResult.getLong("pageCount"));
+        }
+        System.out.println();
+        myStatement.close(); // close statement
+        DataBaseLayer.myConnection.close(); // close connection
+        Menu.menu();
 
     }
 
-    static void displayOptionsWithAuthorname() throws SQLException {
+    static void displayOptionsWithAuthorname() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Please enter author name for display author's information and books : ");
+        System.out.println("Please enter author name for display that book : ");
         String authorName = keyboard.nextLine();
-        keyboard.next();
         //TODO trim and lowercase etc.
 
         DataBaseLayer.dataBaseLayer();
         Statement myStatement = DataBaseLayer.myConnection.createStatement();
-        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.students,LibraryStock.dbo.borrows,LibraryStock.dbo.books WHERE students.studentId = '" + authorName + "' AND students.studentId = borrows.studentId AND borrows.bookId=books.bookId");
-
-
+        ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.authorNameSurname LIKE '%"+authorName+"%' AND books.typeId = types.typeId");
+        while (myResult.next()){
+            System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
+                    myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(),myResult.getString("printDate"),myResult.getLong("pageCount"));
+        }
+        System.out.println();
+        myStatement.close(); // close statement
+        DataBaseLayer.myConnection.close(); // close connection
+        Menu.menu();
     }
 }
