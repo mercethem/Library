@@ -3,10 +3,29 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Add {
+    static void addOptions() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter want to add ?\n" +
+                "student ?(0)\n" +
+                "book ?(1)\n" +
+                "author ?(2)\n");
+        byte option = keyboard.nextByte();
+        switch (option) {
+            case 0:
+                AddOptions.addStudent();
+            case 1:
+                AddOptions.addBook();
+            case 2:
+                AddOptions.addAuthor();
+
+        }
+    }
+}
+
+class AddOptions {
     static void addStudent() {
         Scanner keyboard = new Scanner(System.in);
         try {
-
             System.out.println("Please enter want to add student's ID : ");
             long studentId = keyboard.nextLong();
             keyboard.nextLine();
@@ -77,7 +96,7 @@ public class Add {
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery
                     ("INSERT INTO LibraryStock.dbo.authors  (authorId, authorNameSurname)" +
-                            "VALUES ('" + authorId + "', '" + authorNameSurname + "')"+"INSERT INTO LibraryStock.dbo.books  (bookId, bookName, type,printDate,authorId, [pageCount], authorNameSurname) " +
+                            "VALUES ('" + authorId + "', '" + authorNameSurname + "')" + "INSERT INTO LibraryStock.dbo.books  (bookId, bookName, type,printDate,authorId, [pageCount], authorNameSurname) " +
                             "VALUES ('" + bookId + "', '" + bookName + "','" + type + "','" + printDate + "','" + authorId + "','" + pageCount + "','" + authorNameSurname + "')");
 
             System.out.println();
@@ -86,6 +105,7 @@ public class Add {
             Menu.menu();
         } catch (Exception e) {
             System.out.println(e);
+            Menu.menu();
         }
     }
 
