@@ -17,12 +17,12 @@ class Display {
     }
 }
 
-public class DisplayOptionsAccount { //View to account
-    static void displayAccount() {
+public class DisplayOptionsAccount {
+    static void displayAccount() { //View student information and if there is some borrow books
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to view student ID number:");
         long studentId = keyboard.nextLong();
-        try {
+        try { //Database layer function and SQL query about student information
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.students WHERE students.studentId = '" + studentId + "'");
@@ -34,7 +34,7 @@ public class DisplayOptionsAccount { //View to account
                         myResult.getString("faculty").trim(), myResult.getString("department").trim(), myResult.getInt("grade"),
                         myResult.getString("birthDate").trim().substring(0, 2) + "/" + myResult.getString("birthDate").substring(3, 5) + "/" + myResult.getString("birthDate").substring(6, 10),
                         myResult.getString("gender").trim() + "\n");
-            }
+            } //Database layer function and SQL query about borrow books
             Statement myStatement2 = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult2 = myStatement2.executeQuery("SELECT * FROM LibraryStock.dbo.students,LibraryStock.dbo.borrows,LibraryStock.dbo.books WHERE students.studentId = '" + studentId + "' AND students.studentId = borrows.studentId AND borrows.bookId=books.bookId");
             System.out.println("BORROWED BOOKS");
@@ -55,7 +55,7 @@ public class DisplayOptionsAccount { //View to account
 }
     class DisplayOptionsBook {
 
-    static void displayWithBook() {
+    static void displayWithBook() { //View book information options with id, name of book or name of author
         Scanner keyboard = new Scanner(System.in);
         System.out.println("What are you want to view with ? \nWith Book Id? (0): \nWith Book Name?(1)"
                 + "\nWith Author Name?(2) \n ");
@@ -70,11 +70,11 @@ public class DisplayOptionsAccount { //View to account
         }
     }
 
-    static void displayWithBookId() {
+    static void displayWithBookId() { //View book information options with id of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a Book ID for view to book : ");
         long bookId = keyboard.nextLong();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.bookId = '" + bookId + "'");
@@ -92,11 +92,11 @@ public class DisplayOptionsAccount { //View to account
         }
     }
 
-    static void displayWithBookName() {
+    static void displayWithBookName() { //View book information options with name of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book name for view to book : ");
         String bookName = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.bookName LIKE '%" + bookName + "%'");
@@ -114,11 +114,11 @@ public class DisplayOptionsAccount { //View to account
         }
     }
 
-    static void displayWithAuthorname() {
+    static void displayWithAuthorname() { //View book information options with name of author of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a author name for view to book : ");
         String authorName = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.authorNameSurname LIKE '%" + authorName + "%'");
