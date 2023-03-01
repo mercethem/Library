@@ -3,14 +3,14 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Change {
-    public static void changeOptions() {
+    public static void changeOptions() { //What are you wanting to change
         Scanner keyboard = new Scanner(System.in);
         System.out.println("What is your want to change do to :\n" +
                 "Student ?\nAuthor ?\nBook ?\n");
         short options = keyboard.nextShort();
 
         short choose;
-        if (options == 0) {
+        if (options == 0) { //What are you wanting to change student information
             System.out.println("What is your want to change to do :\n" +
                     "Name and Surname ?(0)\n" +
                     "Faculty ?(1)\n" +
@@ -19,7 +19,7 @@ public class Change {
                     "Gender ?(4)\n" +
                     "Grader ?(5)\n");
             choose = keyboard.nextShort();
-            switch (choose) {
+            switch (choose) { //Take a change
                 case 0:
                     ChangeOptions.changeStudentNameSurname();
                 case 1:
@@ -33,7 +33,7 @@ public class Change {
                 case 5:
                     ChangeOptions.changeStudentGrade();
             }
-        } else if (options == 1) {
+        } else if (options == 1) { //What are you wanting to change author information
             System.out.println("What is your want to change to do :\n" +
                     "Name and Surname ?(0)\n");
             choose = keyboard.nextShort();
@@ -41,7 +41,7 @@ public class Change {
                 case 0:
                     ChangeOptions.changeAuthorNameSurname();
             }
-        } else if (options == 2) {
+        } else if (options == 2) { //What are you wanting to change student information
             System.out.println("What is your want to change to do :\n" +
                     "Name ?(0)\n" +
                     "Type ?(1)\n" +
@@ -49,7 +49,7 @@ public class Change {
                     "Page Count ?(3)\n" +
                     "Book Author Name Surname ?(4)");
             choose = keyboard.nextShort();
-            switch (choose) {
+            switch (choose) { //Take a change
                 case 0:
                     ChangeOptions.changeBookName();
                 case 1:
@@ -65,14 +65,14 @@ public class Change {
     }
 
 }
-class ChangeOptions {
-    public static void changeStudentNameSurname() {
+class ChangeOptions { //Functions for change
+    public static void changeStudentNameSurname() { //Change student name and surname
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a Student name and surname for change student name surname : ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new name and Surname : ");
         String studentNameSurnameNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  studentNameSurname = '" + studentNameSurnameNew + "' WHERE studentId= '%" + studentId + "%'");
@@ -85,13 +85,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeStudentFaculty() {
+    public static void changeStudentFaculty() { //Change student faculty
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a faculty for change student faculty : ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new faculty : ");
         String studentFacultyNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  faculty = '" + studentFacultyNew + "' WHERE studentId = '%" + studentId + "%'");
@@ -104,13 +104,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeStudentDepartment() {
+    public static void changeStudentDepartment() { //Change student department
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a department for change the student department : ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new department : ");
         String studentDepartmentNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  department = '" + studentDepartmentNew + "' WHERE studentId = '%" + studentId + "%'");
@@ -123,13 +123,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeStudentBirthDate() {
+    public static void changeStudentBirthDate() { //Change student birthdate
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a birth date for change student birth date : ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new birth date : ");
         String studentBirthDateNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  birthDate = '" + studentBirthDateNew + "' WHERE studentId = '%" + studentId + "%'");
@@ -142,13 +142,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeStudentGender() {
+    public static void changeStudentGender() { //Change student gender
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a gender for change student gender : ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new gender : ");
         String studentGenderNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  gender = '" + studentGenderNew + "' WHERE studentId = '%" + studentId + "%'");
@@ -161,13 +161,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeStudentGrade() {
+    public static void changeStudentGrade() { //Change student grade
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a grade for change the student grade: ");
         long studentId = keyboard.nextLong();
         System.out.println("Please enter new grade : ");
         String studentGradeNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  grade = '" + studentGradeNew + "' WHERE studentId = '%" + studentId + "%'");
@@ -180,13 +180,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeAuthorNameSurname() {
+    public static void changeAuthorNameSurname() { //Change author name and surname
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a author Id for change the author name surname : ");
         long authorId = keyboard.nextLong();
         System.out.println("Please enter new name and Surname : ");
         String authorNameSurnameNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.authors SET  authorNameSurname = '" + authorNameSurnameNew + "' WHERE authorId= '%" + authorId + "%'");
@@ -199,13 +199,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeBookName() {
+    public static void changeBookName() { //Change name of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book ID for change book name : ");
         long bookId = keyboard.nextLong();
         System.out.println("Please enter new book name : ");
         String bookNameNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  bookName = '" + bookNameNew + "' WHERE bookId= '%" + bookId + "%'");
@@ -218,13 +218,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeBookType() {
+    public static void changeBookType() { //Change type of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book ID for change the book type : ");
         long bookId = keyboard.nextLong();
         System.out.println("Please enter new book type : ");
         String bookTypeNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [type] = '" + bookTypeNew + "' WHERE bookId= '%" + bookId + "%'");
@@ -237,13 +237,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeBookPrintDate() {
+    public static void changeBookPrintDate() { //Change print date of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book ID for change the book print date : ");
         long bookId = keyboard.nextLong();
         System.out.println("Please enter new print date : ");
         String bookPrintDate = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [pageCount] = '" + bookPrintDate + "' WHERE bookId= '%" + bookId + "%'");
@@ -256,13 +256,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeBookPageCount() {
+    public static void changeBookPageCount() { //Change book count of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book ID for change the book page count : ");
         long bookId = keyboard.nextLong();
         System.out.println("Please enter new page count : ");
         String newPageCount = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET pageCount = '" + newPageCount + "' WHERE bookId = '%" + bookId + "%'");
@@ -275,13 +275,13 @@ class ChangeOptions {
         }
     }
 
-    public static void changeBookAuthorNameSurname() {
+    public static void changeBookAuthorNameSurname() { //Change name and surname of author of book
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a bookId for change the author name and surname of book : ");
         long bookId = keyboard.nextLong();
         System.out.println("Please enter new author name and Surname : ");
         String bookAuthorNameSurnameNew = keyboard.nextLine();
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  authorNameSurname = '" + bookAuthorNameSurnameNew + "' WHERE bookId = '%" + bookId + "%'");
