@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Menu {
-     static void menu() {
+     static void menu() { //Menu options for library system
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a choose from options downside : ");
         byte options = keyboard.nextByte();
