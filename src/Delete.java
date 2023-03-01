@@ -3,7 +3,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 class Delete {
-    static void deleteOptions() {
+    static void deleteOptions() { //What are you wanting to delete
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to delete with ?\n" +
                 "student ?(0)\n" +
@@ -23,13 +23,14 @@ class Delete {
 }
 
 class DeleteOptions {
-    public static void deleteStudent() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+    public static void deleteStudent() { //Delete a student
+        //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter student ID for delete student : ");
         long studentId = keyboard.nextLong();
         System.out.println("Are you sure want to delete " + studentId + " that the number is student ?");
         byte question = keyboard.nextByte();
-        try {
+        try {//Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.students WHERE studentId = '" + studentId + "'");
@@ -42,13 +43,14 @@ class DeleteOptions {
         }
     }
 
-    public static void deleteBook() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+    public static void deleteBook() {  //Delete a book
+        //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter book ID for delete book : ");
         long bookId = keyboard.nextLong();
         System.out.println("Are you sure want to delete " + bookId + " that the number is book ?");
         byte question = keyboard.nextByte();
-        try {
+        try {//Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.books WHERE bookId = '" + bookId + "'");
@@ -61,13 +63,14 @@ class DeleteOptions {
         }
     }
 
-    public static void deleteAuthor() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+    public static void deleteAuthor() {  //Delete a author
+        //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter author ID for delete author : ");
         long authorId = keyboard.nextLong();
         System.out.println("Are you sure want to delete " + authorId + " that the number is author ?");
         byte question = keyboard.nextByte();
-        try {
+        try {//Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.authors WHERE authorId = '" + authorId + "'");
