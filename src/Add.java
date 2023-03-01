@@ -3,7 +3,7 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Add {
-    static void addOptions() {
+    static void addOptions() { //Add options for what do you want to add new student,new book or new author
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to add ?\n" +
                 "student ?(0)\n" +
@@ -23,7 +23,7 @@ public class Add {
 }
 
 class AddOptions {
-    static void addStudent() {
+    static void addStudent() { //Adding information for new student
         Scanner keyboard = new Scanner(System.in);
         try {
             System.out.println("Please enter want to add student's ID : ");
@@ -48,7 +48,7 @@ class AddOptions {
             System.out.println("Please enter want to add student's grade : ");
             String grade = keyboard.nextLine();
 
-            DataBaseLayer.dataBaseLayer();
+            DataBaseLayer.dataBaseLayer(); //Database layer function and SQL query
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery
                     ("INSERT INTO LibraryStock.dbo.students  (studentId,studentNameSurname,birthDate,faculty,department,gender,grade ) " +
@@ -65,7 +65,7 @@ class AddOptions {
         }
     }
 
-    static void addBook() {
+    static void addBook() { //Adding information for new book
         Scanner keyboard = new Scanner(System.in);
         try {
 
@@ -92,7 +92,7 @@ class AddOptions {
             String type = keyboard.nextLine();
 
 
-            DataBaseLayer.dataBaseLayer();
+            DataBaseLayer.dataBaseLayer(); //Database layer function and SQL query
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery
                     ("INSERT INTO LibraryStock.dbo.authors  (authorId, authorNameSurname)" +
@@ -109,7 +109,7 @@ class AddOptions {
         }
     }
 
-    static void addAuthor() {
+    static void addAuthor() { //Adding information for new author
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to add author's name and surname : ");
         String authorNameSurname = keyboard.nextLine();
@@ -117,7 +117,7 @@ class AddOptions {
         System.out.println("Please enter want to add book's author ID : ");
         String authorId = keyboard.next();
 
-        try {
+        try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
             ResultSet myResult = myStatement.executeQuery
