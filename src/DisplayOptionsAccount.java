@@ -2,7 +2,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class DisplayOptions {
+class Display {
     static void displayOptions() { //Want to view just account or book ?
         Scanner keyboard = new Scanner(System.in);
         System.out.println("What do you want to view ? " +
@@ -10,14 +10,14 @@ public class DisplayOptions {
         byte options = keyboard.nextByte();
         switch (options) {
             case 0:
-                DisplayAccount.displayAccount();
+                DisplayOptionsAccount.displayAccount();
             case 1:
-                DisplayBook.displayBookOptions();
+                DisplayOptionsBook.displayWithBook();
         }
     }
 }
 
-class DisplayAccount {
+public class DisplayOptionsAccount {
     static void displayAccount() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to view student ID number:");
@@ -29,9 +29,9 @@ class DisplayAccount {
             while (myResult.next()) {   //This section have 15 characters before from % for scheme
                 System.out.println("ACCOUNT INFORMATION");
                 System.out.print("--------------------");
-                System.out.printf("\nStudent ID:    %d\nName Surname:  %S\nFaculty:       %S\nDepartment:    %S\nClass:         %d\nBirthdate:     %s\nGender:        %S\n",
+                System.out.printf("\nStudent ID:    %d\nName Surname:  %S\nFaculty:       %S\nDepartment:    %S\nGrade:         %S\nBirthdate:     %S\nGender:        %S\n",
                         myResult.getLong("studentId"), myResult.getString("studentNameSurname").trim(),
-                        myResult.getString("faculty").trim(), myResult.getString("department").trim(), myResult.getInt("class"),
+                        myResult.getString("faculty").trim(), myResult.getString("department").trim(), myResult.getInt("grade"),
                         myResult.getString("birthDate").trim().substring(0, 2) + "/" + myResult.getString("birthDate").substring(3, 5) + "/" + myResult.getString("birthDate").substring(6, 10),
                         myResult.getString("gender").trim() + "\n");
             }
@@ -40,7 +40,7 @@ class DisplayAccount {
             System.out.println("BORROWED BOOKS");
             System.out.println("--------------");
             while (myResult2.next()) {   //This section have 15 characters before from % for scheme
-                System.out.printf("Borrowed Book: %s => Author: %s ((Brought Date: %s\n", myResult2.getString("bookName").trim(), myResult2.getString("authorNameSurname").trim(),
+                System.out.printf("Borrowed Book: %s / Type : %s => Author: %s ((Brought Date: %s\n", myResult2.getString("bookName").trim(), myResult2.getString("type").trim(), myResult2.getString("authorNameSurname").trim(),
                         myResult2.getString("broughtDate").trim().substring(0, 2) + "/" + myResult2.getString("broughtDate").substring(3, 5) + "/" + myResult2.getString("broughtDate").substring(6, 10) + "))");
             }
             System.out.println();
@@ -49,37 +49,38 @@ class DisplayAccount {
             Menu.menu();
         } catch (Exception e) {
             System.out.println(e);
+            Menu.menu();
         }
     }
 }
+    class DisplayOptionsBook {
 
-class DisplayBook {
-    static void displayBookOptions() {
+    static void displayWithBook() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("What are you want to view with ? \nWith Book Id? (0): \nWith Book Name?(1)"
                 + "\nWith Author Name?(2) \n ");
         byte options = keyboard.nextByte();
         switch (options) {
             case 0:
-                displayOptionsWithBookId();
+                displayWithBookId();
             case 1:
-                displayOptionsWithBookName();
+                displayWithBookName();
             case 2:
-                displayOptionsWithAuthorname();
+                displayWithAuthorname();
         }
     }
 
-    static void displayOptionsWithBookId() {
+    static void displayWithBookId() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a Book ID for view to book : ");
         long bookId = keyboard.nextLong();
         try {
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.bookId = '" + bookId + "' AND books.type = types.typeId");
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.bookId = '" + bookId + "'");
             while (myResult.next()) {
                 System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
-                        myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
+                        myResult.getString("type").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
             }
             System.out.println();
             myStatement.close(); // close statement
@@ -87,20 +88,21 @@ class DisplayBook {
             Menu.menu();
         } catch (Exception e) {
             System.out.println(e);
+            Menu.menu();
         }
     }
 
-    static void displayOptionsWithBookName() {
+    static void displayWithBookName() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a book name for view to book : ");
         String bookName = keyboard.nextLine();
         try {
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.bookName LIKE '%" + bookName + "%' AND books.type = types.typeId");
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.bookName LIKE '%" + bookName + "%'");
             while (myResult.next()) {
                 System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
-                        myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
+                        myResult.getString("type").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
             }
             System.out.println();
             myStatement.close(); // close statement
@@ -108,20 +110,21 @@ class DisplayBook {
             Menu.menu();
         } catch (Exception e) {
             System.out.println(e);
+            Menu.menu();
         }
     }
 
-    static void displayOptionsWithAuthorname() {
+    static void displayWithAuthorname() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter a author name for view to book : ");
         String authorName = keyboard.nextLine();
         try {
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books,LibraryStock.dbo.types WHERE books.authorNameSurname LIKE '%" + authorName + "%' AND books.type = types.typeId");
+            ResultSet myResult = myStatement.executeQuery("SELECT * FROM LibraryStock.dbo.books WHERE books.authorNameSurname LIKE '%" + authorName + "%'");
             while (myResult.next()) {
                 System.out.printf("Book Id :      %d\nBook Name:     %s\nBook Type:     %s\nAuthor:        %s\nPrint Date:    %s\nPage Count:    %d", myResult.getLong("bookId"), myResult.getString("bookName").trim(),
-                        myResult.getString("typeName").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
+                        myResult.getString("type").trim(), myResult.getString("authorNameSurname").trim(), myResult.getString("printDate"), myResult.getLong("pageCount"));
             }
             System.out.println();
             myStatement.close(); // close statement
@@ -129,6 +132,7 @@ class DisplayBook {
             Menu.menu();
         } catch (Exception e) {
             System.out.println(e);
+            Menu.menu();
         }
     }
 }
