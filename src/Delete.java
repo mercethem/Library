@@ -1,14 +1,83 @@
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class Delete {
-    static void delete(){
+class Delete {
+    static void deleteOptions() {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Please enter want to delete book's id");
-        long bookId = keyboard.nextLong();
-        System.out.println("Please enter want to delete book's name : ");
-        String bookName = keyboard.nextLine();
-        System.out.println("Please enter want to delete book's author : ");
-        String bookAuthor = keyboard.nextLine();
+        System.out.println("Please enter want to delete with ?\n" +
+                "student ?(0)\n" +
+                "book ?(1)\n" +
+                "author ?(2)\n");
+        byte option = keyboard.nextByte();
+        switch (option) {
+            case 0:
+                DeleteOptions.deleteStudent();
+            case 1:
+                DeleteOptions.deleteBook();
+            case 2:
+                DeleteOptions.deleteAuthor();
 
+        }
     }
+}
+
+class DeleteOptions {
+    public static void deleteStudent() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter student ID for delete student : ");
+        long studentId = keyboard.nextLong();
+        System.out.println("Are you sure want to delete " + studentId + " that the number is student ?");
+        byte question = keyboard.nextByte();
+        try {
+            DataBaseLayer.dataBaseLayer();
+            Statement myStatement = DataBaseLayer.myConnection.createStatement();
+            ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.students WHERE studentId = '" + studentId + "'");
+            myStatement.close(); // close statement
+            DataBaseLayer.myConnection.close(); // close connection
+            Menu.menu();
+        } catch (Exception e) {
+            System.out.println(e);
+            Menu.menu();
+        }
+    }
+
+    public static void deleteBook() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter book ID for delete book : ");
+        long bookId = keyboard.nextLong();
+        System.out.println("Are you sure want to delete " + bookId + " that the number is book ?");
+        byte question = keyboard.nextByte();
+        try {
+            DataBaseLayer.dataBaseLayer();
+            Statement myStatement = DataBaseLayer.myConnection.createStatement();
+            ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.books WHERE bookId = '" + bookId + "'");
+            myStatement.close(); // close statement
+            DataBaseLayer.myConnection.close(); // close connection
+            Menu.menu();
+        } catch (Exception e) {
+            System.out.println(e);
+            Menu.menu();
+        }
+    }
+
+    public static void deleteAuthor() { //TODO öğrencinin eğer borrowda kitabı varsa öğrencinin silinemeyeğine dair uyarı yap ve silme
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter author ID for delete author : ");
+        long authorId = keyboard.nextLong();
+        System.out.println("Are you sure want to delete " + authorId + " that the number is author ?");
+        byte question = keyboard.nextByte();
+        try {
+            DataBaseLayer.dataBaseLayer();
+            Statement myStatement = DataBaseLayer.myConnection.createStatement();
+            ResultSet myResult = myStatement.executeQuery("DELETE FROM LibraryStock.dbo.authors WHERE authorId = '" + authorId + "'");
+            myStatement.close(); // close statement
+            DataBaseLayer.myConnection.close(); // close connection
+            Menu.menu();
+        } catch (Exception e) {
+            System.out.println(e);
+            Menu.menu();
+        }
+    }
+
 }
