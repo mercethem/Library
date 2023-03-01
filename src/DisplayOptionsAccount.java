@@ -17,7 +17,7 @@ class Display {
     }
 }
 
-public class DisplayOptionsAccount {
+public class DisplayOptionsAccount { //View to account
     static void displayAccount() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter want to view student ID number:");
