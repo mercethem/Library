@@ -1,23 +1,15 @@
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
 public class Change {
     public static void changeOptions() { //What are you wanting to change
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What is your want to change do to :\n" +
-                "Student ?\nAuthor ?\nBook ?\n");
+        System.out.println("What is your want to change do to :\n Student ?\nAuthor ?\nBook ?\n");
         short options = keyboard.nextShort();
 
         short choose;
         if (options == 0) { //What are you wanting to change student information
-            System.out.println("What is your want to change to do :\n" +
-                    "Name and Surname ?(0)\n" +
-                    "Faculty ?(1)\n" +
-                    "Department ?(2)\n" +
-                    "Birthdate ?(3)\n" +
-                    "Gender ?(4)\n" +
-                    "Grader ?(5)\n");
+            System.out.println("What is your want to change to do : \nName and Surname ?(0)\nFaculty ?(1)\nDepartment ?(2)\nBirthdate ?(3)\nGender ?(4)\n");
             choose = keyboard.nextShort();
             switch (choose) { //Take a change
                 case 0:
@@ -30,24 +22,16 @@ public class Change {
                     ChangeOptions.changeStudentBirthDate();
                 case 4:
                     ChangeOptions.changeStudentGender();
-                case 5:
-                    ChangeOptions.changeStudentGrade();
+
             }
         } else if (options == 1) { //What are you wanting to change author information
-            System.out.println("What is your want to change to do :\n" +
-                    "Name and Surname ?(0)\n");
+            System.out.println("What is your want to change to do :\nName and Surname ?(0)\n");
             choose = keyboard.nextShort();
-            switch (choose) {
-                case 0:
-                    ChangeOptions.changeAuthorNameSurname();
+            if (choose == 0) {
+                ChangeOptions.changeAuthorNameSurname();
             }
-        } else if (options == 2) { //What are you wanting to change student information
-            System.out.println("What is your want to change to do :\n" +
-                    "Name ?(0)\n" +
-                    "Type ?(1)\n" +
-                    "Print Date ?(2)\n" +
-                    "Page Count ?(3)\n" +
-                    "Book Author Name Surname ?(4)");
+        } else if (options == 2) { //What are you wanting to change book information
+            System.out.println("What is your want to change to do :\nName ?(0)\nType ?(1)\nPrint Date ?(2)\nPage Count ?(3)\nBook Author Name Surname ?(4)");
             choose = keyboard.nextShort();
             switch (choose) { //Take a change
                 case 0:
@@ -75,12 +59,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  studentNameSurname = '" + studentNameSurnameNew + "' WHERE studentId= '%" + studentId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  studentNameSurname = '" + studentNameSurnameNew + "' WHERE studentId= '%" + studentId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -94,12 +78,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  faculty = '" + studentFacultyNew + "' WHERE studentId = '%" + studentId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  faculty = '" + studentFacultyNew + "' WHERE studentId = '%" + studentId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -113,12 +97,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  department = '" + studentDepartmentNew + "' WHERE studentId = '%" + studentId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  department = '" + studentDepartmentNew + "' WHERE studentId = '%" + studentId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -132,12 +116,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  birthDate = '" + studentBirthDateNew + "' WHERE studentId = '%" + studentId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  birthDate = '" + studentBirthDateNew + "' WHERE studentId = '%" + studentId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -151,31 +135,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  gender = '" + studentGenderNew + "' WHERE studentId = '%" + studentId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  gender = '" + studentGenderNew + "' WHERE studentId = '%" + studentId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
-            Menu.menu();
-        }
-    }
-
-    public static void changeStudentGrade() { //Change student grade
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("Please enter a grade for change the student grade: ");
-        long studentId = keyboard.nextLong();
-        System.out.println("Please enter new grade : ");
-        String studentGradeNew = keyboard.nextLine();
-        try { //Database layer function and SQL query
-            DataBaseLayer.dataBaseLayer();
-            Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.students SET  grade = '" + studentGradeNew + "' WHERE studentId = '%" + studentId + "%'");
-            myStatement.close(); // close statement
-            DataBaseLayer.myConnection.close(); // close connection
-            Menu.menu();
-        } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -189,12 +154,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.authors SET  authorNameSurname = '" + authorNameSurnameNew + "' WHERE authorId= '%" + authorId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.authors SET  authorNameSurname = '" + authorNameSurnameNew + "' WHERE authorId= '%" + authorId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -208,12 +173,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  bookName = '" + bookNameNew + "' WHERE bookId= '%" + bookId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  bookName = '" + bookNameNew + "' WHERE bookId= '%" + bookId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -227,12 +192,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [type] = '" + bookTypeNew + "' WHERE bookId= '%" + bookId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [type] = '" + bookTypeNew + "' WHERE bookId= '%" + bookId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -246,12 +211,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [pageCount] = '" + bookPrintDate + "' WHERE bookId= '%" + bookId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  [pageCount] = '" + bookPrintDate + "' WHERE bookId= '%" + bookId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -265,12 +230,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET pageCount = '" + newPageCount + "' WHERE bookId = '%" + bookId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET pageCount = '" + newPageCount + "' WHERE bookId = '%" + bookId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -284,12 +249,12 @@ class ChangeOptions { //Functions for change
         try { //Database layer function and SQL query
             DataBaseLayer.dataBaseLayer();
             Statement myStatement = DataBaseLayer.myConnection.createStatement();
-            ResultSet myResult = myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  authorNameSurname = '" + bookAuthorNameSurnameNew + "' WHERE bookId = '%" + bookId + "%'");
+            myStatement.executeQuery("UPDATE LibraryStock.dbo.books SET  authorNameSurname = '" + bookAuthorNameSurnameNew + "' WHERE bookId = '%" + bookId + "%'");
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
