@@ -5,8 +5,7 @@ import java.util.Scanner;
 class Display {
     static void displayOptions() { //Want to view just account or book ?
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What do you want to view ? " +
-                "\nView Account ? (0) \nView Book ? (1)");
+        System.out.println("What do you want to view ?\nView Account ? (0) \nView Book ? (1)");
         byte options = keyboard.nextByte();
         switch (options) {
             case 0:
@@ -29,9 +28,9 @@ public class DisplayOptionsAccount {
             while (myResult.next()) {   //This section have 15 characters before from % for scheme
                 System.out.println("ACCOUNT INFORMATION");
                 System.out.print("--------------------");
-                System.out.printf("\nStudent ID:    %d\nName Surname:  %S\nFaculty:       %S\nDepartment:    %S\nGrade:         %S\nBirthdate:     %S\nGender:        %S\n",
+                System.out.printf("\nStudent ID:    %d\nName Surname:  %S\nFaculty:       %S\nDepartment:    %S\nBirthdate:     %S\nGender:        %S\n",
                         myResult.getLong("studentId"), myResult.getString("studentNameSurname").trim(),
-                        myResult.getString("faculty").trim(), myResult.getString("department").trim(), myResult.getInt("grade"),
+                        myResult.getString("faculty").trim(), myResult.getString("department").trim(),
                         myResult.getString("birthDate").trim().substring(0, 2) + "/" + myResult.getString("birthDate").substring(3, 5) + "/" + myResult.getString("birthDate").substring(6, 10),
                         myResult.getString("gender").trim() + "\n");
             } //Database layer function and SQL query about borrow books
@@ -40,15 +39,16 @@ public class DisplayOptionsAccount {
             System.out.println("BORROWED BOOKS");
             System.out.println("--------------");
             while (myResult2.next()) {   //This section have 15 characters before from % for scheme
-                System.out.printf("Borrowed Book: %s / Type : %s => Author: %s ((Brought Date: %s\n", myResult2.getString("bookName").trim(), myResult2.getString("type").trim(), myResult2.getString("authorNameSurname").trim(),
-                        myResult2.getString("broughtDate").trim().substring(0, 2) + "/" + myResult2.getString("broughtDate").substring(3, 5) + "/" + myResult2.getString("broughtDate").substring(6, 10) + "))");
+                System.out.printf("Borrowed Book: %s / Type : %s => Author: %s ((Taken Date: %s Brought Date: %s\n", myResult2.getString("bookName").trim(), myResult2.getString("type").trim(), myResult2.getString("authorNameSurname").trim(),
+                        myResult2.getString("takenDate").trim().substring(0, 2) + "/" + myResult2.getString("takenDate").substring(3, 5) + "/" + myResult2.getString("takenDate").substring(6, 10) + "))",
+                        myResult2.getString("broughtDate").trim().substring(0, 2) + "/" + myResult2.getString("broughtDate").substring(3, 5) + "/" + myResult2.getString("broughtDate").substring(6, 10)+ "))");
             }
             System.out.println();
             myStatement.close(); // close statement
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -57,8 +57,7 @@ public class DisplayOptionsAccount {
 
     static void displayWithBook() { //View book information options with id, name of book or name of author
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("What are you want to view with ? \nWith Book Id? (0): \nWith Book Name?(1)"
-                + "\nWith Author Name?(2) \n ");
+        System.out.println("What are you want to view with ? \nWith Book Id? (0): \nWith Book Name?(1)\nWith Author Name?(2)\n");
         byte options = keyboard.nextByte();
         switch (options) {
             case 0:
@@ -87,7 +86,7 @@ public class DisplayOptionsAccount {
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -109,7 +108,7 @@ public class DisplayOptionsAccount {
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
@@ -131,7 +130,7 @@ public class DisplayOptionsAccount {
             DataBaseLayer.myConnection.close(); // close connection
             Menu.menu();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
             Menu.menu();
         }
     }
