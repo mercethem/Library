@@ -9,3 +9,5 @@ The presentations are as shown below
 ![ Alt text](flowChart.png)  [](flowChart.png)
 
 ![ Alt text](sqlDiagram.png)  [](sqlDiagram.png)
+
+![ Alt text](umlDiagram.png)  [](umlDiagram.png)
